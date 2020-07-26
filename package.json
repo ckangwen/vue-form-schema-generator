@@ -13,7 +13,7 @@
     "element-ui": "^2.13.2",
     "endent": "^2.0.1",
     "fuse.js": "^6.0.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "vue": "^2.6.11",
     "vue-ele-form": "^0.8.25",
     "vuedraggable": "^2.23.2",
