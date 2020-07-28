@@ -44,5 +44,11 @@ export default {
   /** 更新表单的schema */
   updateFormSchema (state, fieldList) {
     state.fieldList = fieldList
+  },
+  setGlobalProps (state, newProps) {
+    state.globalProps = {
+      ...state.globalProps,
+      ...newProps
+    }
   }
 }

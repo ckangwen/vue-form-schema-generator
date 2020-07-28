@@ -19,5 +19,6 @@ export default {
   /** 被选中的FormItem的下标 */
   activeIndex: 0,
   /** 右侧Tab的name值 */
-  tabName: ALL_COMPONENTS
+  tabName: ALL_COMPONENTS,
+  globalProps: {}
 }

@@ -24,7 +24,7 @@ const config = {
         'options支持`API接口`、`数组`、`函数`、`Promise`等, 具体看<a target="_blank" href="https://www.yuque.com/chaojie-vjiel/vbwzgu/rgenav" class="el-link el-link--primary">文档</a>'
     }
   },
-  commonData: {
+  schemaOptions: {
     options: [
       { text: '选项1', value: 1 },
       { text: '选项2', value: 2 },

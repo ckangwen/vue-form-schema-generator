@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <el-container style="height: 100vh">
-      <el-header>
+      <el-header :style="{
+        height: '60px',
+        borderBottom: '1px solid rgba(0,0,0,.07)'
+      }">
         <app-header></app-header>
       </el-header>
       <el-container style="height: calc(100vh - 60px);">
@@ -33,6 +36,7 @@ export default {
 <style lang="scss">
 html, body {
   margin: 0;
+  font-family: 'Fira Code', 'Source Han Sans HW SC';
 }
 #app {
   width: 100%;

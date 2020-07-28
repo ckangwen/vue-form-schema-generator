@@ -1,16 +1,13 @@
 <template>
-<div>
-    <ele-form
+  <div class="sider-props-config-panel">
+    <form-schema
       :formData="activeField.commonData || {}"
-      :formDesc="config"
-      :formAttrs="{ size: 'small' }"
+      :formSchema="config"
+      size="small"
       @input="updateFormAttrs"
-      :isShowBackBtn="false"
-      :isShowSubmitBtn="false"
-      :span="20"
-      labelPosition="top"
+      label-position="top"
     />
-</div>
+  </div>
 </template>
 
 <script>
@@ -57,7 +54,7 @@ export default {
           label: '默认值'
         },
         required: {
-          type: 'yesno',
+          type: 'switch',
           label: '校检',
           title: '是否必填'
         },

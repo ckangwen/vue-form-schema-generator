@@ -45,17 +45,15 @@ const config = {
       type: 'radio',
       label: '原生 type 属性',
       options: ['button', 'submit', 'reset']
+    },
+    text: {
+      label: '按钮文本',
+      type: 'input'
     }
   },
   attrsData: {},
   attrsDefaultData: {
-    size: null,
-    type: null,
-    plain: false,
-    round: false,
-    circle: false,
-    autofocus: false,
-    nativeType: 'button'
+    text: '按钮文本'
   },
   common: {
     default: {
@@ -63,8 +61,8 @@ const config = {
       label: '按钮文本'
     }
   },
-  commonData: {
-    default: '按钮文本'
+  schemeOptions: {
+    text: '按钮文本'
   },
   commonDefaultData: {}
 }

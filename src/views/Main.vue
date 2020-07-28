@@ -1,16 +1,15 @@
 <template>
   <div class="app-main-center">
-    <ele-form
+    <form-schema
       v-model="formData"
-      :form-desc="formSchema"
-      :request-fn="handleSubmit"
-      @request-success="handleSuccess"
-      ref="ele-form"
-      v-bind="formMinorAttrs"
+      v-bind="globalProps"
+      :form-schema="formSchema"
+      :request="handleSubmit"
+      @success="handleSuccess"
+      ref="form"
+      label-width="150px"
     >
-      <template
-        v-slot:form-content="{ props, formDesc, formErrorObj }"
-      >
+      <template v-slot:content="{schema, field, index}">
         <draggable
           :animation="200"
           :disabled="false"
@@ -19,8 +18,6 @@
           @end="handleMoveEnd"
           @start="handleMoveStart"
           group="form"
-          tag="el-row"
-          style="padding-bottom: 80px;"
         >
           <div
             class="form-area-placeholder"
@@ -29,58 +26,29 @@
             从左侧拖拽来添加表单项
           </div>
           <template v-else>
-            <template v-for="(formItem, field, index) of formDesc">
-              <el-col
-                :key="field"
-                v-bind="formItem._colAttrs"
-                @click.native="handleFormItemClick(index)"
-                v-if="formItem._vif"
-                class="form-item"
-                :class="{ 'form-item-active': activeIndex === index }"
-              >
-                <el-form-item
-                :error="formErrorObj ? formErrorObj[field] : null"
-                  :prop="field"
-                  :label="
-                    props.isShowLabel && formItem.isShowLabel !== false
-                      ? formItem.label
-                      : null
-                  "
-                  :label-width="formItem.labelWidth || null"
-                >
-                  <component
-                    :disabled="props.disabled || formItem._disabled"
-                    :desc="formItem"
-                    :is="formItem._type"
-                    :options="formItem._options"
-                    :ref="field"
-                    :field="field"
-                    v-model="formItem.default"
-                  />
-                  <div
-                    class="ele-form-tip"
-                    v-if="formItem.tip"
-                    v-html="formItem.tip"
-                  ></div>
-                </el-form-item>
-
-                <!-- 删除按钮 -->
-                <i
-                  @click.stop="handleDelete(index)"
-                  class="el-icon-delete form-item-delete-btn"
-                  v-if="activeIndex === index"
-                ></i>
-              </el-col>
-            </template>
+            <div
+              @click="handleFormItemClick(index)"
+              :class="{
+                'form-item-active': activeIndex === index,
+                'form-item': true
+              }"
+            >
+              <form-field :schema="schema" :field="field" />
+              <i
+                @click.stop="handleDelete(index)"
+                class="el-icon-delete form-item-delete-btn"
+                v-if="activeIndex === index"
+              ></i>
+            </div>
           </template>
         </draggable>
       </template>
-    </ele-form>
+    </form-schema>
   </div>
 </template>
 <script>
 import draggable from 'vuedraggable'
-import { ITEM_PROPS } from '@/config'
+import { ITEM_PROPS } from '@/helper/constants'
 import { mapState, mapGetters, mapMutations } from 'vuex'
 export default {
   name: 'create-form-main',
@@ -93,7 +61,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['activeIndex', 'fieldList', 'formMinorAttrs']),
+    ...mapState(['activeIndex', 'fieldList', 'formMinorAttrs', 'globalProps']),
     ...mapGetters(['activeField', 'formSchema'])
   },
   methods: {

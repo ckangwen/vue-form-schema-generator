@@ -17,8 +17,5 @@ export default {
     handleSuccess () {
       this.$message.success('创建成功')
     }
-  },
-  mounted () {
-    console.log(2333)
   }
 }

@@ -23,13 +23,13 @@ export default {
       ? fieldList[activeIndex]
       : null
   },
-  formAttrs (state) {
-    const { formMinorAttrs } = state
-    if (!formMinorAttrs) return null
-    const isEmptyOrDefaultValue = (val, key) =>
-      isNil(val) || val === formAttrDefault[key]
-    return omitBy(formMinorAttrs, isEmptyOrDefaultValue)
-  },
+  // formAttrs (state) {
+  //   const { formMinorAttrs } = state
+  //   if (!formMinorAttrs) return null
+  //   const isEmptyOrDefaultValue = (val, key) =>
+  //     isNil(val) || val === formAttrDefault[key]
+  //   return omitBy(formMinorAttrs, isEmptyOrDefaultValue)
+  // },
   formSchema (state) {
     const fieldList = state.fieldList || []
     if (!fieldList.attrs) {

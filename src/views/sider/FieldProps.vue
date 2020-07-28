@@ -1,14 +1,11 @@
 <template>
-  <div>
-    <ele-form
+  <div class="sider-props-config-panel">
+    <form-schema
       :formData="activeField.attrs || {}"
-      :formDesc="itemAttrs"
-      :formAttrs="{ size: 'small' }"
+      :formSchema="itemAttrs"
+      size="small"
       @input="updateFormAttrs"
-      :isShowBackBtn="false"
-      :isShowSubmitBtn="false"
-      :span="20"
-      labelPosition="top"
+      label-position="top"
     />
   </div>
 </template>
@@ -31,3 +28,9 @@ export default {
   }
 }
 </script>
+<style>
+.sider-props-config-panel .el-form--label-top .el-form-item__label {
+  line-height: 100%;
+  padding: 0;
+}
+</style>

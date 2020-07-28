@@ -3,6 +3,8 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import EleForm from 'vue-ele-form'
 import App from './App.vue'
+import { FormSchema, FormField } from '@ckangwen/components'
+import '@ckangwen/components/lib/styles/index.css'
 
 import store from './store'
 
@@ -26,6 +28,8 @@ Vue.use(EleForm, {
 })
 
 Vue.use(ElementUI)
+Vue.use(FormSchema)
+Vue.use(FormField)
 
 Vue.config.productionTip = false
 

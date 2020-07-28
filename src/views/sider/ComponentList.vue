@@ -101,8 +101,7 @@ export default {
       const {
         attrsData = {},
         attrsDefaultData = {},
-        commonData = {}
-        // commonDefaultData = {}
+        schemeOptions = {}
       } = blocksConfig[type] || {}
 
       common.field = common.field || `${common.label}_${Date.now()}` || `key_${Date.now()}`
@@ -110,9 +109,9 @@ export default {
 
       const fieldAttrs = Object.assign(
         {},
-        cloneDeep(commonData),
         {
           ...common,
+          ...cloneDeep(schemeOptions),
           type,
           attrs: {
             ...attrs,
@@ -122,6 +121,7 @@ export default {
         }
       )
       fieldAttrs.attrs = this.filterEmptyOrDefaultValue(fieldAttrs.attrs)
+      console.log(fieldAttrs)
       return fieldAttrs
     },
     filterEmptyOrDefaultValue (obj) {
