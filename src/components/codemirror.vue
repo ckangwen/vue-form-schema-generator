@@ -1,6 +1,7 @@
 <template>
   <div class="codemirror">
     <codemirror v-model="value" :options="options" />
+    <slot :value="value"></slot>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="sider-props-config-panel">
     <form-schema
-      :formData="activeField.commonData || {}"
+      :formData="formData"
       :formSchema="config"
       size="small"
       @input="updateFormAttrs"
@@ -14,7 +14,7 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  name: 'form-schema-shared-props',
+  name: 'form-schema-generator-shared-props',
   data () {
     return {
       config: {
@@ -36,18 +36,8 @@ export default {
             'format-tooltip' (val) {
               return `${val} / 24`
             }
-          }
-          // on: {
-          //   input: val => {
-          //     // slider组件, 如果传递的value为null或者undefined, 会赋值为 1, 无法利用到默认值, 所以去掉
-          //     if (val !== 1) {
-          //       this.updateCurrentItem({
-          //         ...this.currentFormItem,
-          //         layout: val
-          //       });
-          //     }
-          //   }
-          // }
+          },
+          default: 24
         },
         default: {
           type: 'input',
@@ -76,19 +66,39 @@ export default {
           label: '标签宽度',
           type: 'input',
           tip: '需要以`px`作为单位, 例如`100px`, 默认为全局设置的labelWidth值'
+        },
+        options: {
+          label: 'Options',
+          type: 'map-array',
+          attrs: {
+            keys: ['text', 'value'],
+            labels: ['字段', '值'],
+            components: ['el-input', 'el-input'],
+            direction: 'column',
+            labelWidth: 30
+          }
         }
       }
     }
   },
   computed: {
-    ...mapGetters(['activeField'])
+    ...mapGetters(['activeField']),
+    formData () {
+      const { attrs, ...others } = this.activeField
+      return others
+    }
   },
   methods: {
-    ...mapMutations(['updateFormItemAttrs']),
+    ...mapMutations(['updateCommonData']),
     updateFormAttrs (data) {
-      console.log(data)
-      // this.updateFormItemAttrs(data)
+      this.updateCommonData(data)
     }
   }
 }
 </script>
+<style>
+.sider-props-config-panel .wen-form-field-tip {
+  padding: 0 10px;
+  margin: 0;
+}
+</style>

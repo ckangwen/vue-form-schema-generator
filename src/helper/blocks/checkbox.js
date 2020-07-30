@@ -21,12 +21,7 @@ const config = {
     }
   },
   attrsData: {},
-  attrsDefaultData: {
-    size: null,
-    min: 0,
-    max: 0
-  },
-  common: {
+  commonAttrs: {
     default: {
       type: 'checkbox',
       label: '默认值',
@@ -40,18 +35,12 @@ const config = {
         'options支持`API接口`、`数组`、`函数`、`Promise`等, 具体看<a target="_blank" href="https://www.yuque.com/chaojie-vjiel/vbwzgu/rgenav" class="el-link el-link--primary">文档</a>'
     }
   },
-  schemeOptions: {
+  commonData: {
     options: [
       { text: '选项1', value: 1 },
       { text: '选项2', value: 2 },
       { text: '选项3', value: 3 }
     ]
-  },
-  commonDefaultData: {
-    prop: {
-      text: 'text',
-      value: 'value'
-    }
   }
 }
 

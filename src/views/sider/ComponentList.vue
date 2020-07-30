@@ -52,7 +52,7 @@ import omitBy from 'lodash/omitBy'
 import blocksConfig from '@/helper/blocks'
 import { components, formAttrDefault } from '@/helper/project-config'
 export default {
-  name: 'create-form-component-list',
+  name: 'form-schema-generator-component-list',
   components: {
     draggable
   },
@@ -100,8 +100,7 @@ export default {
     addFormField (type, common = {}, attrs = {}) {
       const {
         attrsData = {},
-        attrsDefaultData = {},
-        schemeOptions = {}
+        commonData = {}
       } = blocksConfig[type] || {}
 
       common.field = common.field || `${common.label}_${Date.now()}` || `key_${Date.now()}`
@@ -111,17 +110,15 @@ export default {
         {},
         {
           ...common,
-          ...cloneDeep(schemeOptions),
+          ...cloneDeep(commonData),
           type,
           attrs: {
             ...attrs,
-            ...cloneDeep(attrsDefaultData),
             ...cloneDeep(attrsData)
           }
         }
       )
       fieldAttrs.attrs = this.filterEmptyOrDefaultValue(fieldAttrs.attrs)
-      console.log(fieldAttrs)
       return fieldAttrs
     },
     filterEmptyOrDefaultValue (obj) {

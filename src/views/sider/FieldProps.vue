@@ -13,17 +13,18 @@
 import blocksConfig from '@/helper/blocks'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
-  name: 'wen-create-form-comp-config',
+  name: 'form-schema-generator-field-props',
   computed: {
     ...mapGetters(['activeField']),
     itemAttrs () {
+      if (Object.keys(this.activeField).length === 0) return {}
       return blocksConfig[this.activeField.type].attrs
     }
   },
   methods: {
-    ...mapMutations(['updateFormItemAttrs']),
+    ...mapMutations(['updateAttrsData']),
     updateFormAttrs (data) {
-      this.updateFormItemAttrs(data)
+      this.updateAttrsData(data)
     }
   }
 }

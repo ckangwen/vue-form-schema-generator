@@ -21,7 +21,7 @@ export default {
     const { activeIndex, fieldList } = state
     return fieldList && fieldList.length > 0 && activeIndex > -1
       ? fieldList[activeIndex]
-      : null
+      : {}
   },
   // formAttrs (state) {
   //   const { formMinorAttrs } = state
@@ -31,11 +31,14 @@ export default {
   //   return omitBy(formMinorAttrs, isEmptyOrDefaultValue)
   // },
   formSchema (state) {
+    const { activeIndex } = state
+    if (activeIndex < 0) return {}
     const fieldList = state.fieldList || []
-    if (!fieldList.attrs) {
-      fieldList.attrs = {}
+    const fieldAttrs = fieldList[activeIndex]
+    if (!fieldAttrs.attrs) {
+      fieldAttrs.attrs = {}
     } else {
-      fieldList.attrs = omitBy(fieldList.attrs, isEmptyOrDefaultValue)
+      fieldAttrs.attrs = omitBy(fieldAttrs.attrs, isEmptyOrDefaultValue)
     }
     return fieldList
       ? _keyBy(fieldList, 'field')

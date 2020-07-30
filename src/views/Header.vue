@@ -22,8 +22,8 @@
       </div>
     </el-tooltip>
     <el-tooltip class="header-icon" effect="dark" content="导入数据" placement="top-start">
-      <div @click="() => { exportDataDialog = true }">
-        <i class="el-icon-download"></i>
+      <div @click="() => { importDataDialog = true }">
+        <i class="el-icon-upload2"></i>
       </div>
     </el-tooltip>
   </div>
@@ -34,15 +34,16 @@
     title="预览"
     fullscreen
   >
-      <ele-form
+      <form-schema
       v-model="formData"
-      :form-desc="formSchema"
+      :form-schema="formSchema"
       :request-fn="handleSubmit"
       @request-success="handleSuccess"
       ref="ele-form"
-      v-bind="formMinorAttrs"
-    ></ele-form>
+      v-bind="globalProps"
+    ></form-schema>
   </el-dialog>
+
   <el-dialog
     :visible.sync="exportDataDialog"
     append-to-body
@@ -51,9 +52,10 @@
   >
     <code-mirror :code="data"></code-mirror>
     <div class="btn-action">
-      <el-button @click="handleCopyData" type="primary">复制数据</el-button>
+      <el-button @click="handleCopyData(data)" type="primary">复制数据</el-button>
     </div>
   </el-dialog>
+
   <el-dialog
     :visible.sync="exportCodeDialog"
     append-to-body
@@ -62,18 +64,32 @@
   >
     <code-mirror :code="code"></code-mirror>
     <div class="btn-action">
-      <el-button @click="handleCopyData" type="primary">复制数据</el-button>
+      <el-button @click="handleCopyData(code)" type="primary">复制数据</el-button>
     </div>
+  </el-dialog>
+
+  <el-dialog
+    :visible.sync="importDataDialog"
+    append-to-body
+    title="导入数据"
+    width="600px"
+  >
+    <code-mirror code="">
+      <template v-slot:default="{ value }">
+        <div class="btn-action">
+          <el-button icon="el-icon-check" type="success" @click="handleImportData(value)">提交</el-button>
+        </div>
+      </template>
+    </code-mirror>
   </el-dialog>
 </div>
 </template>
 <script>
 import CodeMirror from '@/components/codemirror'
-// import copy from 'clipboard-copy'
+import copy from 'clipboard-copy'
 import formSchemaMixin from '@/mixins/formSchema'
-import { mapState } from 'vuex'
-// import tpl from '../utils/tpl.ejs'
-// const ejs = require('ejs')
+import { mapState, mapGetters, mapMutations } from 'vuex'
+import { generateCode, convertToArray } from '@/utils'
 
 export default {
   name: 'create-form-header',
@@ -85,40 +101,58 @@ export default {
     return {
       exportDataDialog: false,
       previewDialog: false,
-      exportCodeDialog: false
+      exportCodeDialog: false,
+      importDataDialog: false
     }
   },
   computed: {
     ...mapState([
-      'gloablProps'
+      'globalProps',
+      'fieldList'
+    ]),
+    ...mapGetters([
+      'formSchema'
     ]),
     data () {
       return JSON.stringify(this.formSchema, null, 2)
     },
     code () {
-      // const tpl = '';
-      // const getFormAttrObj = formAttr => {
-      //   return Object.entries(formAttr).map(([key, value]) => {
-      //     // 将 [['name', 'zhang'], ['age', 10]] => [{name: 'zhang', ':age': 10}]
-      //     // 因为 vue 模板 非字符串前需要加 : 表示变量
-      //     key = typeof value === 'string' ? key : `:${key}`
-      //     return {
-      //       key,
-      //       value
-      //     }
-      //   })
-      // }
-      // return ejs.render(tpl, {
-      //   formAttr: getFormAttrObj(this.gloablProps),
-      //   formSchema: {}
-      // })
-      return 'code'
+      return generateCode(JSON.stringify({}), JSON.stringify(this.formSchema, null, 2), this.globalProps)
     }
   },
   methods: {
-    handleCopyData () {
-      // copy(endent(this.formSchema))
-      // this.$message.success('复制成功!')
+    ...mapMutations([
+      'updateFormSchema'
+    ]),
+    handleCopyData (val) {
+      copy(val)
+      this.$message.success('复制成功!')
+    },
+    checkImportData (importData) {
+      const keys = Object.keys(importData)
+      for (let i = 0; i < keys.length; i++) {
+        const value = importData[keys[i]]
+        if (!value.label) {
+          this.$message.warning(`【${keys[i]}】中的label属性是必须的`)
+          return false
+        }
+        if (!value.type) {
+          this.$message.warning(`【${keys[i]}】中的type属性是必须的`)
+          return false
+        }
+      }
+      return true
+    },
+    handleImportData (val) {
+      const obj = JSON.parse(val)
+      const res = this.checkImportData(obj)
+      if (!res) return
+
+      this.updateFormSchema([
+        ...this.fieldList,
+        ...convertToArray(obj)
+      ])
+      this.importDataDialog = false
     }
   }
 }

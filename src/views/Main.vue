@@ -2,12 +2,12 @@
   <div class="app-main-center">
     <form-schema
       v-model="formData"
-      v-bind="globalProps"
       :form-schema="formSchema"
       :request="handleSubmit"
       @success="handleSuccess"
       ref="form"
       label-width="150px"
+      v-bind="globalProps"
     >
       <template v-slot:content="{schema, field, index}">
         <draggable
@@ -67,7 +67,8 @@ export default {
   methods: {
     ...mapMutations([
       'updateIndex',
-      'updateTabName'
+      'updateTabName',
+      'removeField'
     ]),
     updateSelectIndex (index) {
       this.updateIndex(index)
@@ -85,7 +86,9 @@ export default {
     handleMoveStart (data) {
 
     },
-    handleDelete (index) {},
+    handleDelete (index) {
+      this.removeField(index)
+    },
     handleSubmit (data) {
       return Promise.resolve()
     },

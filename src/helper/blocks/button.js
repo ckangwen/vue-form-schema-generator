@@ -55,14 +55,15 @@ const config = {
   attrsDefaultData: {
     text: '按钮文本'
   },
-  common: {
+  commonAttrs: {
     default: {
       type: 'input',
       label: '按钮文本'
     }
   },
-  schemeOptions: {
-    text: '按钮文本'
+  commonData: {
+    text: '按钮文本',
+    layout: 24
   },
   commonDefaultData: {}
 }

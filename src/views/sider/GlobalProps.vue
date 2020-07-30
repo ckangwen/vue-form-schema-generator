@@ -12,7 +12,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 export default {
-  name: 'wen-create-form-comp-config',
+  name: 'form-schema-generator-global-props',
   computed: {
     ...mapState(['globalProps'])
   },
@@ -33,8 +33,7 @@ export default {
         size: {
           type: 'select',
           label: '全局表单大小',
-          options: ['medium', 'small', 'mini'],
-          default: true
+          options: ['medium', 'small', 'mini']
         },
         labelWidth: {
           type: 'input',

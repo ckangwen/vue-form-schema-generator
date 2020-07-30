@@ -8,6 +8,7 @@ export default {
       field: 'name',
       label: 'name',
       type: 'input',
+      layout: 24,
       attrs: {
         clearable: true,
         prefixIcon: 'el-icon-edit'

@@ -99,7 +99,9 @@ export default {
     autofocus: false,
     validateEvent: true
   },
-  common: {},
-  commonData: {},
+  commonAttrs: {},
+  commonData: {
+    layout: 24
+  },
   commonDefaultData: {}
 }
