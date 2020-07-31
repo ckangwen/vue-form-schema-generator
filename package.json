@@ -1,5 +1,5 @@
 {
-  "name": "create-form-web",
+  "name": "vue-form-schema-generator",
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
