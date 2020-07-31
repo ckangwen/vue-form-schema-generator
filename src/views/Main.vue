@@ -27,7 +27,7 @@
           <template v-else>
             <template v-for="(value, key, index) in schema">
               <form-field
-                :schema="value"
+                :schema="value || {}"
                 :field="key"
                 :class="{
                   'form-item-active': activeIndex === index,
