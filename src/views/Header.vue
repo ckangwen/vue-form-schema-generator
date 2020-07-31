@@ -35,12 +35,12 @@
     fullscreen
   >
       <form-schema
-      v-model="formData"
-      :form-schema="formSchema"
-      :request-fn="handleSubmit"
-      @request-success="handleSuccess"
-      ref="ele-form"
-      v-bind="globalProps"
+        v-model="formData"
+        :form-schema="formSchema"
+        :request-fn="handleSubmit"
+        @request-success="handleSuccess"
+        ref="ele-form"
+        v-bind="globalProps"
     ></form-schema>
   </el-dialog>
 

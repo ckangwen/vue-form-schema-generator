@@ -35,10 +35,12 @@ export default {
     if (activeIndex < 0) return {}
     const fieldList = state.fieldList || []
     const fieldAttrs = fieldList[activeIndex]
-    if (!fieldAttrs.attrs) {
-      fieldAttrs.attrs = {}
-    } else {
-      fieldAttrs.attrs = omitBy(fieldAttrs.attrs, isEmptyOrDefaultValue)
+    if (fieldAttrs) {
+      if (!fieldAttrs.attrs) {
+        fieldAttrs.attrs = {}
+      } else {
+        fieldAttrs.attrs = omitBy(fieldAttrs.attrs, isEmptyOrDefaultValue)
+      }
     }
     return fieldList
       ? _keyBy(fieldList, 'field')

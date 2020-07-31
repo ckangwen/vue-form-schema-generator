@@ -1,14 +1,16 @@
 export function generateCode (formData, formSchema, attrs) {
   let str = ''
   const keys = Object.keys(attrs)
-  keys.forEach((key, idx) => {
-    if (key && attrs[key] !== undefined) {
-      str += `    ${key}='${attrs[key]}'`
-      if (idx !== keys.length - 1) {
-        str += '\n'
+  if (keys.length > 0) {
+    keys.forEach((key, idx) => {
+      if (key && attrs[key] !== undefined) {
+        str += `    ${key}='${attrs[key]}'`
+        if (idx !== keys.length - 1) {
+          str += '\n'
+        }
       }
-    }
-  })
+    })
+  }
   return `
 <template>
   <form-schema

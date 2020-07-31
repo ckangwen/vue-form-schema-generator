@@ -1,7 +1,7 @@
 <template>
   <div class="sider-props-config-panel">
     <form-schema
-      :formData="activeField.attrs || {}"
+      :formData="activeField ? activeField.attrs : {}"
       :formSchema="itemAttrs"
       size="small"
       @input="updateFormAttrs"

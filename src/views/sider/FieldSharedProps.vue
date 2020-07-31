@@ -84,8 +84,8 @@ export default {
   computed: {
     ...mapGetters(['activeField']),
     formData () {
-      const { attrs, ...others } = this.activeField
-      return others
+      const { attrs, ...others } = this.activeField || {}
+      return others || {}
     }
   },
   methods: {
@@ -99,6 +99,6 @@ export default {
 <style>
 .sider-props-config-panel .wen-form-field-tip {
   padding: 0 10px;
-  margin: 0;
+  margin: 5px 0;
 }
 </style>

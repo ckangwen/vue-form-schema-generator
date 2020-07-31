@@ -5,10 +5,11 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "gh-pages": "gh-pages -d dist"
   },
   "dependencies": {
-    "@ckangwen/components": "^0.2.8",
+    "@ckangwen/components": "^0.2.10",
     "clipboard-copy": "^3.1.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
@@ -34,6 +35,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^6.2.2",
+    "gh-pages": "^3.1.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "vue-codemirror": "^4.0.6",

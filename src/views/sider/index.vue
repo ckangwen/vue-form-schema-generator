@@ -50,7 +50,7 @@ export default {
         },
         {
           name: GLOBAL_PROPS,
-          icon: 'el-icon-s-opportunity',
+          icon: 'el-icon-tickets',
           label: 'FormSchema配置',
           component: 'global-props'
         }

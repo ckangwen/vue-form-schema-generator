@@ -9,10 +9,9 @@
       label-width="150px"
       v-bind="globalProps"
     >
-      <template v-slot:content="{schema, field, index}">
+      <template v-slot:content="{schema}">
         <draggable
           :animation="200"
-          :disabled="false"
           :list="fieldList"
           @add="handleAdd"
           @end="handleMoveEnd"
@@ -20,26 +19,31 @@
           group="form"
         >
           <div
-            class="form-area-placeholder"
             v-if="fieldList.length === 0"
+            class="form-area-placeholder"
           >
             从左侧拖拽来添加表单项
           </div>
           <template v-else>
-            <div
-              @click="handleFormItemClick(index)"
-              :class="{
-                'form-item-active': activeIndex === index,
-                'form-item': true
-              }"
-            >
-              <form-field :schema="schema" :field="field" />
-              <i
-                @click.stop="handleDelete(index)"
-                class="el-icon-delete form-item-delete-btn"
-                v-if="activeIndex === index"
-              ></i>
-            </div>
+            <template v-for="(value, key, index) in schema">
+              <form-field
+                :schema="value"
+                :field="key"
+                :class="{
+                  'form-item-active': activeIndex === index,
+                  'form-item': true
+                }"
+                @click.native="handleFormItemClick(index)"
+                :key="key"
+              >
+                <i
+                  @click.stop="handleDelete(index)"
+                  class="el-icon-delete form-item-delete-btn"
+                  v-if="activeIndex === index"
+                ></i>
+              </form-field>
+            </template>
+
           </template>
         </draggable>
       </template>
@@ -61,7 +65,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['activeIndex', 'fieldList', 'formMinorAttrs', 'globalProps']),
+    ...mapState(['activeIndex', 'fieldList', 'globalProps']),
     ...mapGetters(['activeField', 'formSchema'])
   },
   methods: {
@@ -84,7 +88,7 @@ export default {
       this.updateIndex(data.newIndex)
     },
     handleMoveStart (data) {
-
+      this.updateIndex(data.oldIndex)
     },
     handleDelete (index) {
       this.removeField(index)
